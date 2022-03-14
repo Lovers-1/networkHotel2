@@ -154,7 +154,8 @@ const userId = auth.currentUser.uid;
         roomNum,
         price,
         days,
-        stutes:'paid',
+        status:'paid',
+        bookingStatus:'booked'
       
     })
     navigation.navigate('PaymentSuc')

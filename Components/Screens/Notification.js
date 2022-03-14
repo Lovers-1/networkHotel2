@@ -19,7 +19,11 @@ useEffect(()=>{
       let item = [];
       const a_ =snap.val();
       for (let x in a_){
-        item.push({url:a_[x].url , Hotelname:a_[x].Hotelname , days:a_[x].days})
+        item.push({url:a_[x].url , 
+            Hotelname:a_[x].Hotelname ,
+             days:a_[x].days,
+             total:a_[x].total,
+             bookingStatus:a_[x].bookingStatus,})
       } 
     setNoti(item)
     })
@@ -71,21 +75,37 @@ useEffect(()=>{
             underlineColorAndroid="transparent"
             placeholder="Search Here"
           />
-
+         <Text style={{color:'#00BBff'}}>Number of Booking {noti.length}</Text>
           <ScrollView>
 
              {
                  noti.map(element =>
                     <>
-                     <TouchableOpacity  onPress={() => navigation.navigate('AboutNotif')}>
-                     <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderRadius: 5, marginTop: 10, backgroundColor: '#f2f4f6',color:'gray' }}>
-                         <Avatar  size={70} 
+                     <TouchableOpacity  onPress={() => navigation.navigate('AboutNotif',boo)}>
+                     <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderRadius: 5, marginTop: 10, backgroundColor: '#f2f4f6',color:'gray',padding:5 }}>
+                         <Avatar  size={70}
+                         rounded
                           source={{ uri: element.url }}/>
-                         <View>
-                             <Text style={{ fontWeight: 'bold', fontSize: 15, margin: 5,color:'gray' }}>
+                         <View style={{flexDirection:'row',justifyContent:'space-between',padding:5}}>
+                             {/* <Text style={{ fontWeight: 'bold', fontSize: 15, margin: 5,color:'gray' }}>
                                  You have booked  Austratkli Hotel at {'\n'}
                                  {element.Hotelname},for the 2 night
-                             </Text >
+                             </Text > */}
+                             <View>
+                             <Text>
+                                 {element.Hotelname}
+                             </Text>
+                             <Text>
+                                 {element.days} Night(s)
+                             </Text>
+                             <Text>
+                             {element.bookingStatus}
+                             </Text>
+                             </View>
+
+                             
+                             
+                             
                             
                          </View>
                      </View>

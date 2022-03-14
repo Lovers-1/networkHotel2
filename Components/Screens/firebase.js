@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/database';
 import 'firebase/auth';
+import 'firebase/storage';
 const Config = {
     apiKey: "AIzaSyD2NJcpb7-Wz7JsKRDT5BFaRAzK_f3Aagg",
     authDomain: "lovers-517db.firebaseapp.com",
@@ -16,4 +17,5 @@ firebase.initializeApp(Config);
 const db = firebase.database();
 const _db =firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 export { db , _db,auth, firebase as default };

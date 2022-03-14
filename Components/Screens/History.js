@@ -3,6 +3,10 @@
 import React, {useState, useEffect} from 'react';
 
 // import all the components we are going to use
+
+import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import {
     SafeAreaView,
     Text,
@@ -11,22 +15,34 @@ import {
     FlatList,
     TextInput,
   } from 'react-native';
+import { db } from './firebase';
   
   const History = () => {
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
-  
+   
     useEffect(() => {
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          setFilteredDataSource(responseJson);
-          setMasterDataSource(responseJson);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      const item =[]
+      db.ref('booking').on('value',snap=>{
+        let item = [];
+        const a_ =snap.val();
+        for (let x in a_){
+          item.push({url:a_[x].url , Hotelname:a_[x].Hotelname , days:a_[x].days,bookingStatus:a_[x].bookingStatus})
+        } 
+     
+      setFilteredDataSource(item);
+      setMasterDataSource(item);
+      })
+      // fetch('https://jsonplaceholder.typicode.com/posts')
+      //   .then((response) => response.json())
+      //   .then((responseJson) => {
+      //     setFilteredDataSource(responseJson);
+      //     setMasterDataSource(responseJson);
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     }, []);
   
     const searchFilterFunction = (text) => {
@@ -37,8 +53,8 @@ import {
         // Update FilteredDataSource
         const newData = masterDataSource.filter(
           function (item) {
-            const itemData = item.title
-              ? item.title.toUpperCase()
+            const itemData = item.Hotelname
+              ? item.Hotelname.toUpperCase()
               : ''.toUpperCase();
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
@@ -55,14 +71,48 @@ import {
   
     const ItemView = ({item}) => {
       return (
+        <>
+        <View>
+
+          <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderRadius: 5, marginTop: 10, backgroundColor: '#f2f4f6',color:'gray',padding:5 }}>
+                         <Avatar  size={70}
+                         
+                          source={{ uri: item.url }}/>
+                         <View style={{flexDirection:'row',justifyContent:'space-between',padding:5}}>
+                             {/* <Text style={{ fontWeight: 'bold', fontSize: 15, margin: 5,color:'gray' }}>
+                                 You have booked  Austratkli Hotel at {'\n'}
+                                 {item.Hotelname},for the 2 night
+                             </Text > */}
+                             <View>
+                             <Text>
+                                 {item.Hotelname}
+                             </Text>
+                             <Text>
+                                 {item.days} days
+                             </Text>
+                             </View>
+
+                             <View>
+
+                             <Text style={{color:'red',marginLeft:150}} >
+                                 {item.bookingStatus}
+
+                                 <Icon name="favorite" color='red' size={24} />
+                             </Text>
+                             </View>
+                            
+                         </View>
+                     </View>
+        </View>
+        </>
         // Flat List Item
-        <Text
-          style={styles.itemStyle}
-          onPress={() => getItem(item)}>
-          {item.id}
-          {'.'}
-          {item.title.toUpperCase()}
-        </Text>
+        // <Text
+        //   style={styles.itemStyle}
+        //   onPress={() => getItem(item)}>
+        //   {item.id}
+        //   {'.'}
+        //   {item.title.toUpperCase()}
+        // </Text>
       );
     };
   
@@ -87,7 +137,7 @@ import {
   
     return (
       <SafeAreaView style={{flex: 1}}>
-        <View style={styles.container}>
+      <View style={styles.container}>
           <TextInput
             style={styles.textInputStyle}
             onChangeText={(text) => searchFilterFunction(text)}
@@ -95,6 +145,8 @@ import {
             underlineColorAndroid="transparent"
             placeholder="Search Here"
           />
+
+          
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}

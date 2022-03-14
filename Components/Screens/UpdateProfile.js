@@ -72,6 +72,7 @@ const UpdateProfile = () => {
       setSurname(value.val().surname)
       setemail(value.val().email)
       setPhoneNumber(value.val().phoneNumber)
+      seturl(value.val().url)
     })
 },[]);
   
@@ -96,7 +97,7 @@ const UpdateProfile = () => {
                   justifyContent: "center",
                 }}
               >
-                {image && <Avatar rounded size={80} source={{ uri: image }} />}
+                {image && <Avatar rounded size={80} source={{ uri: url }} />}
 
                 <FontAwesome
                   name="camera"

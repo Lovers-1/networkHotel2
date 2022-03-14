@@ -47,7 +47,8 @@ const Profile  =({navigation}) =>{
         <SafeAreaView style ={styles.container}>
             <View style={styles.userInfoSection}>
             <View style={{flexDirection: 'row', marginTop: 15}}>
-            <Avatar size={80}  source={{ uri: url }}></Avatar>
+              {/* <Text> {url}</Text> */}
+            <Avatar size={80}  source={{ uri: url }} rounded></Avatar>
  <View style={{marginLeft: 20}}>
  <Text style={[styles.title, {
               marginTop:15,
