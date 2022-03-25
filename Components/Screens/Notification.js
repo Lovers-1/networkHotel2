@@ -81,7 +81,7 @@ useEffect(()=>{
              {
                  noti.map(element =>
                     <>
-                     <TouchableOpacity  onPress={() => navigation.navigate('AboutNotif',boo)}>
+                     <TouchableOpacity  onPress={() => navigation.navigate('AboutNotif')}>
                      <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderRadius: 5, marginTop: 10, backgroundColor: '#f2f4f6',color:'gray',padding:5 }}>
                          <Avatar  size={70}
                          rounded

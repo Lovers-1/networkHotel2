@@ -57,7 +57,7 @@ const ForgetPassword = ({navigation}) => {
                     />
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('Avaliable')} style={styles.button}>
+                <TouchableOpacity onPress={passRest} style={styles.button}>
                     <Text style={styles.buttonTitle}>
                     CONTIUNE
                     </Text>

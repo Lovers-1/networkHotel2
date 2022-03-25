@@ -14,6 +14,7 @@ import {
     View,
     FlatList,
     TextInput,
+    TouchableOpacity,
   } from 'react-native';
 import { db } from './firebase';
   
@@ -68,7 +69,11 @@ import { db } from './firebase';
         setSearch(text);
       }
     };
-  
+    const deleteBooking = (id) => {
+      _db.ref('/booking/').child(id).remove();
+ 
+     // bookingRef.remove();
+   };
     const ItemView = ({item}) => {
       return (
         <>
@@ -95,9 +100,13 @@ import { db } from './firebase';
                              <View>
 
                              <Text style={{color:'red',marginLeft:150}} >
-                                 {item.bookingStatus}
+                                 {/* {item.bookingStatus} */}
 
-                                 <Icon name="favorite" color='red' size={24} />
+                                 <Icon name="favorite" color='gray' size={24} />
+                                 <TouchableOpacity onPress={deleteBooking}>
+                                 <Icon name="delete" color='red' size={24} />
+                                 </TouchableOpacity>
+
                              </Text>
                              </View>
                             
